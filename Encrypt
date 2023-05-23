@@ -1,0 +1,47 @@
+import random
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def multiplicative_inverse(e, phi):
+    def extended_gcd(a, b):
+        if a == 0:
+            return b, 0, 1
+        else:
+            gcd, x, y = extended_gcd(b % a, a)
+            return gcd, y - (b // a) * x, x
+
+    gcd, x, _ = extended_gcd(e, phi)
+    if gcd == 1:
+        return x % phi
+
+def generate_key_pair(p, q):
+    n = p * q
+    phi = (p - 1) * (q - 1)
+    e = random.randrange(1, phi)
+    while gcd(e, phi) != 1:
+        e = random.randrange(1, phi)
+    d = multiplicative_inverse(e, phi)
+    return (e, n), (d, n)
+
+def encrypt(message, public_key):
+    e, n = public_key
+    encrypted = [pow(ord(char), e, n) for char in message]
+    return encrypted
+
+# Main program
+if __name__ == '__main__':
+    p = 61
+    q = 53
+
+    public_key, private_key = generate_key_pair(p, q)
+
+    message = input("Enter a message: ")
+
+    encrypted_message = encrypt(message, public_key)
+    print("Encrypted message:", encrypted_message)
+
+    decrypted_message = decrypt(encrypted_message, private_key)
+    print("Decrypted message:", decrypted_message)
