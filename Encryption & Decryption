@@ -26,22 +26,19 @@ def generate_key_pair(p, q):
     d = multiplicative_inverse(e, phi)
     return (e, n), (d, n)
 
-def encrypt(message, public_key):
-    e, n = public_key
-    encrypted = [pow(ord(char), e, n) for char in message]
-    return encrypted
+def decrypt(encrypted, private_key):
+    d, n = private_key
+    decrypted = [chr(pow(char, d, n)) for char in encrypted]
+    return ''.join(decrypted)
 
 # Main program
 if __name__ == '__main__':
     p = 61
     q = 53
 
-    public_key, private_key = generate_key_pair(p, q)
-
-    message = input("Enter a message: ")
-
-    encrypted_message = encrypt(message, public_key)
-    print("Encrypted message:", encrypted_message)
+    public_key, private_key = generate_key_pair(p, q
+    
+    encrypted_message =input("Enter the encrypted message")
 
     decrypted_message = decrypt(encrypted_message, private_key)
     print("Decrypted message:", decrypted_message)
