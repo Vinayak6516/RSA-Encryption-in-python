@@ -1,7 +1,7 @@
 # RSA-Encryption-in-python
 This Program encrypts as well as decrypts your messages using the RSA(Rivest,Shamir,Adleman) Algorithm whihch is the basis of a cryptosystem.A suite of cryptographic algorithms that are used for specific security services or purposes, which enables public key encryption and is widely used to secure sensitive data, particularly when it is being sent over an insecure network.
 
-Import random from existing python library.
+Import random library.
 
 Define GCD
 
